@@ -30,4 +30,9 @@ public class StudentController {
         return service.getAll();
     }
 
+    @PutMapping
+    public Mono<Student> update(@RequestBody Student student, @RequestParam Long id) {
+        return service.update(student, id);
+    }
+
 }

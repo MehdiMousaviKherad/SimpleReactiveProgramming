@@ -32,8 +32,20 @@ public class StudentService {
     public Flux<Student> getAll() {
         return repository.findAll();
     }
-    public  Mono<Student> getById(Long id){
+
+    public Mono<Student> getById(Long id) {
         return repository.findById(id);
     }
 
+    public Mono<Student> update(Student newStudent, Long id) {
+        return repository.findById(id)
+                .flatMap(item -> {
+                    if (item != null) {
+                        newStudent.setId(item.getId());
+                        return save(newStudent);
+                    }
+                    return save(newStudent);
+                });
+
+    }
 }
